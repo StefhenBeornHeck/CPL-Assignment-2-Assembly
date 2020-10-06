@@ -35,7 +35,7 @@
     pop b
     ret
 
-; args: d (num), stack (out ptr)
+; args: d (num), c (out ptr)
 format_number:
     ; mod = rsi - rsi / 10 * 10
     mov a, d          # divisor
@@ -45,10 +45,8 @@ format_number:
     sub b, a          # b (mod) = d - d / 10 * 10
     add b, 48         # num -> ascii
 
-    pop a
-    mov [a], b        # *out = mod
-    inc a             # out++
-    push a
+    mov [c], b        # *out = mod
+    inc c             # out++
 
     mov a, d          # divisor
     div 10            # a = c / 10
