@@ -45,7 +45,7 @@ format_number:
     sub b, a          # b (mod) = d - d / 10 * 10
     add b, 48         # num -> ascii
 
-    mov [c], b        # *out = mod
+    movb [c], bl      # *out = mod
     inc c             # out++
 
     mov a, d          # divisor
