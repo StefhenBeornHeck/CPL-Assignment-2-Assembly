@@ -1,4 +1,4 @@
-# as main.as -o main.o && gcc main.o -o main
+# as main.S -o main.o && gcc main.o -o main
 
 .intel_syntax noprefix
 
@@ -7,10 +7,10 @@ main:
     push rax
 
     call .Lsum_of_squares
-    mov rsi, rax
+    movzx rsi, ax
 
     call .Lsquare_of_sum
-    mov rdx, rax
+    movzx rdx, ax
 
     lea rdi, [rip + .Lstring]
     xor eax, eax
@@ -22,25 +22,28 @@ main:
 
 .Lsum_of_squares:
     push rbx
+    push rcx
 
-    mov rax, 0 # sum
+    mov cx, 0 # sum
     mov bx, 0 # i
 
     1:
     inc bx
-    mov cx, bx
-    imul cx, cx
-    add ax, cx
+    mov ax, bx
+    mul ax # square
+    add cx, ax
     cmp bx, 10
     jb 1b
 
+    mov ax, cx
+    pop rcx
     pop rbx
     ret
 
 .Lsquare_of_sum:
     push rbx
 
-    mov rax, 0 # sum
+    mov ax, 0 # sum
     mov bx, 0 # i
 
     1:
@@ -50,7 +53,7 @@ main:
     cmp bx, 10
     jb 1b
 
-    imul ax, ax
+    mul ax # square
     pop rbx
     ret
 
