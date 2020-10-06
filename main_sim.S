@@ -34,3 +34,26 @@
     mul a # square
     pop b
     ret
+
+; args: d (num), stack (out ptr)
+format_number:
+    ; mod = rsi - rsi / 10 * 10
+    mov a, d          # divisor
+    div 10            # a = d / 10
+    mul 10            # a = d / 10 * 10
+    mov b, d          # b = d
+    sub b, a          # b (mod) = d - d / 10 * 10
+    add b, 48         # num -> ascii
+
+    pop a
+    mov [a], b        # *out = mod
+    inc a             # out++
+    push a
+
+    mov a, d          # divisor
+    div 10            # a = c / 10
+    mov d, a          # d = c / 10
+    cmp d, 0          # d == 0
+    jnz format_number # false => jump
+
+    ret
