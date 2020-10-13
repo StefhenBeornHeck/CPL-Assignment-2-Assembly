@@ -1,4 +1,4 @@
-mov sp, 255           ; Set SP
+mov sp, 255	          ; Set SP
 call .Lsum_of_squares ; Calculate the sum of the squares
 push a                ; Push value of register A onto the stack
 call .Lsquare_of_sum  ; Calculate the square of the sums
@@ -49,13 +49,13 @@ hlt                   ; Halt execution
 ; args: d (num), c (out ptr)
 format_number:
     ; calculate length of the printed number and increment c as necessary
-    mov a, d
-    dec c
+    mov a, d                        ; a = d
+    dec c                           ; --c
     .Lformat_number_length_loop:
-    div 10
-    inc c
-    cmp a, 0
-    jnz .Lformat_number_length_loop
+    div 10                          ; a
+    inc c                           ; c++
+    cmp a, 0                        ; a == 0
+    jnz .Lformat_number_length_loop ; false => jump
 
     .Lformat_number_print_loop:
     ; mod = rsi - rsi / 10 * 10
