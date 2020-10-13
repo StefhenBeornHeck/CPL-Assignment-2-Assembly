@@ -1,6 +1,3 @@
-; Example 1.1:
-; Writes "Hello World!" to the text display
-
 	mov sp, 255		; Set SP
 	call .Lsum_of_squares
     push a
