@@ -1,4 +1,4 @@
-mov sp, 255		      ; Set SP
+mov sp, 255	          ; Set SP
 call .Lsum_of_squares ; Calculate the sum of the squares
 push a                ; Push value of register A onto the stack
 call .Lsquare_of_sum  ; Calculate the square of the sums
@@ -32,17 +32,17 @@ hlt                   ; Halt execution
 .Lsquare_of_sum:
     push b
 
-    mov a, 0                # sum
-    mov b, 0                # i
+    mov a, 0                ; sum
+    mov b, 0                ; i
 
     .Lsquare_of_sum_loop:
-    inc b.                  #increment b
-    mov c, b.               #c = b
-    add a, c                #c+a
-    cmp b, 10               # b == 10
-    jb .Lsquare_of_sum_loop #false => jump
+    inc b.                  ; increment b
+    mov c, b.               ; c = b
+    add a, c                ; c + a
+    cmp b, 10               ; b == 10
+    jb .Lsquare_of_sum_loop ; false => jump
 
-    mul a                   # square
+    mul a                   ; square
     pop b 
     ret
 
@@ -59,20 +59,20 @@ format_number:
 
     .Lformat_number_print_loop:
     ; mod = rsi - rsi / 10 * 10
-    mov a, d          # divisor
-    div 10            # a = d / 10
-    mul 10            # a = d / 10 * 10
-    mov b, d          # b = d
-    sub b, a          # b (mod) = d - d / 10 * 10
-    add b, 48         # num -> ascii
+    mov a, d                        ; divisor
+    div 10                          ; a = d / 10
+    mul 10                          ; a = d / 10 * 10
+    mov b, d                        ; b = d
+    sub b, a                        ; b (mod) = d - d / 10 * 10
+    add b, 48                       ; num -> ascii
 
-    movb [c], bl      # *out = mod
-    dec c             # out++
-
-    mov a, d          # divisor
-    div 10            # a = c / 10
-    mov d, a          # d = c / 10
-    cmp d, 0          # d == 0
-    jnz .Lformat_number_print_loop: # false => jump
+    movb [c], bl                    ; *out = mod
+    dec c                           ; out++
+    
+    mov a, d                        ; divisor
+    div 10                          ; a = c / 10
+    mov d, a                        ; d = c / 10
+    cmp d, 0                        ; d == 0
+    jnz .Lformat_number_print_loop: ; false => jump
 
     ret
