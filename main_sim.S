@@ -1,33 +1,33 @@
-	mov sp, 255		; Set SP
-	call .Lsum_of_squares
-    push a
-    call .Lsquare_of_sum
-    pop b
-    sub a, b
-    mov d, a
-	mov c, 0x2E0	; Point register C to output
-	call format_number
-	hlt				; Halt execution
+mov sp, 255		      ; Set SP
+call .Lsum_of_squares ; Calculate the sum of the squares
+push a                ; Push value of register A onto the stack
+call .Lsquare_of_sum  ; Calculate the square of the sums
+pop b                 ; Pop result of "sum_of_squares" into register B 
+sub a, b              ; Subtract B from A and store result in A
+mov d, a              ; Copy value from A to D
+mov c, 0x2E0          ; Point register C to output
+call format_number    ; Format the number and print
+hlt                   ; Halt execution
 
 .Lsum_of_squares:
-    push b
-    push c
+    push b                    ; Push value of B onto stack
+    push c                    ; Push value of C onto stack
 
-    mov c, 0 # sum
-    mov b, 0 # i
+    mov c, 0                  ; Store 0 in C (value of the sum)
+    mov b, 0                  ; Store 0 in B (value of i)
 
-    .Lsum_of_squares_loop:
-    inc b
-    mov a, b
-    mul a # square
-    add c, a
-    cmp b, 10
-    jb .Lsum_of_squares_loop
+    .Lsum_of_squares_loop:    ; A "for-loop"
+    inc b                     ; Increment B
+    mov a, b                  ; Copy B to A
+    mul a                     ; Multiply A with A and store result in A
+    add c, a                  ; Add C and A and store result in A
+    cmp b, 10                 ; Compare B with 10
+    jb .Lsum_of_squares_loop  ; Do the loop again if B is below 10 
 
-    mov a, c
-    pop c
-    pop b
-    ret
+    mov a, c                  ; Copy C to A
+    pop c                     ; Set original value back
+    pop b                     ; Set original value back
+    ret                       ; Return
 
 .Lsquare_of_sum:
     push b
