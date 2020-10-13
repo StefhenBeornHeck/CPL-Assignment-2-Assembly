@@ -8,7 +8,7 @@
     pop b
     sub a, b
     mov d, a
-	mov c, 0x2EF	; Point register C to output
+	mov c, 0x2E0	; Point register C to output
 	call format_number
 	hlt				; Halt execution
 
@@ -51,6 +51,16 @@
 
 ; args: d (num), c (out ptr)
 format_number:
+    ; calculate length of the printed number and increment c as necessary
+    mov a, d
+    dec c
+    .Lformat_number_length_loop:
+    div 10
+    inc c
+    cmp a, 0
+    jnz .Lformat_number_length_loop
+
+    .Lformat_number_print_loop:
     ; mod = rsi - rsi / 10 * 10
     mov a, d          # divisor
     div 10            # a = d / 10
@@ -66,6 +76,6 @@ format_number:
     div 10            # a = c / 10
     mov d, a          # d = c / 10
     cmp d, 0          # d == 0
-    jnz format_number # false => jump
+    jnz .Lformat_number_print_loop: # false => jump
 
     ret
