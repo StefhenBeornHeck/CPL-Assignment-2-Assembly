@@ -36,14 +36,14 @@
     mov b, 0 # i
 
     .Lsquare_of_sum_loop:
-    inc b
-    mov c, b
-    add a, c
-    cmp b, 10
-    jb .Lsquare_of_sum_loop
+    inc b. #increment b
+    mov c, b. #c = b
+    add a, c #c+a
+    cmp b, 10 # b == 10
+    jb .Lsquare_of_sum_loop #false => jump
 
     mul a # square
-    pop b
+    pop b 
     ret
 
 ; args: d (num), c (out ptr)
