@@ -32,17 +32,17 @@
 .Lsquare_of_sum:
     push b
 
-    mov a, 0 # sum
-    mov b, 0 # i
+    mov a, 0                # sum
+    mov b, 0                # i
 
     .Lsquare_of_sum_loop:
-    inc b. #increment b
-    mov c, b. #c = b
-    add a, c #c+a
-    cmp b, 10 # b == 10
+    inc b.                  #increment b
+    mov c, b.               #c = b
+    add a, c                #c+a
+    cmp b, 10               # b == 10
     jb .Lsquare_of_sum_loop #false => jump
 
-    mul a # square
+    mul a                   # square
     pop b 
     ret
 
