@@ -1,3 +1,13 @@
+; Example 1.1:
+; Writes "Hello World!" to the text display
+
+	mov sp, 255		; Set SP
+	call .Lsum_of_squares
+    mov d, a
+	mov c, 0x2EF	; Point register C to output
+	call format_number
+	hlt				; Halt execution
+
 .Lsum_of_squares:
     push b
     push c
@@ -46,7 +56,7 @@ format_number:
     add b, 48         # num -> ascii
 
     movb [c], bl      # *out = mod
-    inc c             # out++
+    dec c             # out++
 
     mov a, d          # divisor
     div 10            # a = c / 10
