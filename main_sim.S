@@ -3,6 +3,10 @@
 
 	mov sp, 255		; Set SP
 	call .Lsum_of_squares
+    push a
+    call .Lsquare_of_sum
+    pop b
+    sub a, b
     mov d, a
 	mov c, 0x2EF	; Point register C to output
 	call format_number
