@@ -1,4 +1,4 @@
-mov sp, 255	          ; Set SP
+mov sp, 255           ; Set SP
 call .Lsum_of_squares ; Calculate the sum of the squares
 push a                ; Push value of register A onto the stack
 call .Lsquare_of_sum  ; Calculate the square of the sums
